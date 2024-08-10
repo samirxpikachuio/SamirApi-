@@ -1986,3 +1986,263 @@ try {
 ```
 </details>
 
+
+### Transcribe Functions
+
+<details>
+<summary><code>ytTranscript(url)</code> - Transcribes a YouTube video.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.ytTranscript("https://www.youtube.com/watch?v=example")
+  .then(transcript => console.log("Transcript:", transcript))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const transcript = await samirapi.ytTranscript("https://www.youtube.com/watch?v=example");
+  console.log("Transcript:", transcript);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>transcribe(url)</code> - Transcribes audio from a given URL.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.transcribe("https://www.example.com/audiofile")
+  .then(transcript => console.log("Transcript:", transcript))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const transcript = await samirapi.transcribe("https://www.example.com/audiofile");
+  console.log("Transcript:", transcript);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Audio Remover Function
+
+<details>
+<summary><code>vocalRev(url)</code> - Removes vocals from an audio track.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.vocalRev("https://www.example.com/audiofile")
+  .then(audioWithoutVocals => console.log("Audio without vocals:", audioWithoutVocals))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const audioWithoutVocals = await samirapi.vocalRev("https://www.example.com/audiofile");
+  console.log("Audio without vocals:", audioWithoutVocals);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Waifu TTS Functions
+
+<details>
+<summary><code>waifuTTS(text, number)</code> - Converts text to speech using a waifu voice.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.waifuTTS("Hello, world!", 1)
+  .then(audio => console.log("Waifu TTS audio:", audio))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const audio = await samirapi.waifuTTS("Hello, world!", 1);
+  console.log("Waifu TTS audio:", audio);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>waifuVoicelist()</code> - Retrieves a list of available waifu voices.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.waifuVoicelist()
+  .then(voicelist => console.log("Waifu voice list:", voicelist))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const voicelist = await samirapi.waifuVoicelist();
+  console.log("Waifu voice list:", voicelist);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Movie Clips Function
+
+<details>
+<summary><code>clips(text)</code> - Searches for movie clips based on the given text.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.clips("action scene")
+  .then(clips => console.log("Movie clips:", clips))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const clips = await samirapi.clips("action scene");
+  console.log("Movie clips:", clips);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### NGL Function
+
+<details>
+<summary><code>ngl(username, message)</code> - Sends an anonymous message to an NGL.link user.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.ngl("exampleuser", "Hello, this is a message!")
+  .then(response => console.log("NGL response:", response))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const response = await samirapi.ngl("exampleuser", "Hello, this is a message!");
+  console.log("NGL response:", response);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Code Snippet Functions
+
+<details>
+<summary><code>snippetLanguages()</code> - Retrieves a list of supported programming languages for code snippets.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.snippetLanguages()
+  .then(languages => console.log("Supported languages:", languages))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const languages = await samirapi.snippetLanguages();
+  console.log("Supported languages:", languages);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>snippetThemes()</code> - Retrieves a list of available themes for code snippets.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.snippetThemes()
+  .then(themes => console.log("Available themes:", themes))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const themes = await samirapi.snippetThemes();
+  console.log("Available themes:", themes);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>snippet(code, theme, language, lineNumbers, scale, backgroundColor, backgroundImage, showBackground)</code> - Generates a code snippet image with the given parameters.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.snippet(
+  "const x = 10;",
+  "dracula",
+  "javascript",
+  true,
+  1,
+  "#ffffff",
+  "path/to/image.png",
+  true
+)
+  .then(image => console.log("Code snippet image:", image))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const image = await samirapi.snippet(
+    "const x = 10;",
+    "dracula",
+    "javascript",
+    true,
+    1,
+    "#ffffff",
+    "path/to/image.png",
+    true
+  );
+  console.log("Code snippet image:", image);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
