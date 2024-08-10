@@ -1,5 +1,5 @@
 {
-  "name": "samir-api",
+  "name": "samirapi",
   "version": "1.0.0",
   "description": "A versatile API wrapper for various services",
   "main": "dist/index.cjs",
