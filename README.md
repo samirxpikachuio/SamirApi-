@@ -942,27 +942,26 @@ try {
 ```
 </details>
 
+
 ### Text Bin Functions
-```markdown
-### Text Bin Functions
 
 <details>
-<summary><code>pastebin(text)</code> - Creates a paste on Pastebin.</summary>
+<summary><code>pastebin(text)</code> - Uploads text to Pastebin and returns the URL.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.pastebin("This is a text paste.")
-  .then(pasteUrl => console.log("Pastebin URL:", pasteUrl))
+samirapi.pastebin("This is some sample text.")
+  .then(url => console.log("Pastebin URL:", url))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const pasteUrl = await samirapi.pastebin("This is a text paste.");
-  console.log("Pastebin URL:", pasteUrl);
+  const url = await samirapi.pastebin("This is some sample text.");
+  console.log("Pastebin URL:", url);
 } catch (error) {
   console.error(error);
 }
@@ -970,22 +969,22 @@ try {
 </details>
 
 <details>
-<summary><code>paste(text)</code> - Creates a paste on Paste.</summary>
+<summary><code>paste(text)</code> - Uploads text to a paste service and returns the URL.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.paste("This is a paste.")
-  .then(pasteUrl => console.log("Paste URL:", pasteUrl))
+samirapi.paste("This is some sample text.")
+  .then(url => console.log("Paste URL:", url))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const pasteUrl = await samirapi.paste("This is a paste.");
-  console.log("Paste URL:", pasteUrl);
+  const url = await samirapi.paste("This is some sample text.");
+  console.log("Paste URL:", url);
 } catch (error) {
   console.error(error);
 }
@@ -993,22 +992,22 @@ try {
 </details>
 
 <details>
-<summary><code>hastebin(text)</code> - Creates a paste on Hastebin.</summary>
+<summary><code>hastebin(text)</code> - Uploads text to Hastebin and returns the URL.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.hastebin("This is a Hastebin paste.")
-  .then(pasteUrl => console.log("Hastebin URL:", pasteUrl))
+samirapi.hastebin("This is some sample text.")
+  .then(url => console.log("Hastebin URL:", url))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const pasteUrl = await samirapi.hastebin("This is a Hastebin paste.");
-  console.log("Hastebin URL:", pasteUrl);
+  const url = await samirapi.hastebin("This is some sample text.");
+  console.log("Hastebin URL:", url);
 } catch (error) {
   console.error(error);
 }
@@ -1016,114 +1015,114 @@ try {
 </details>
 
 <details>
-<summary><code>nekobin(code)</code> - Creates a paste on Nekobin.</summary>
+<summary><code>nekobin(code)</code> - Uploads code to Nekobin and returns the URL.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.nekobin("This is a Nekobin paste.")
-  .then(pasteUrl => console.log("Nekobin URL:", pasteUrl))
+samirapi.nekobin("console.log('Hello, world!');")
+  .then(url => console.log("Nekobin URL:", url))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const pasteUrl = await samirapi.nekobin("This is a Nekobin paste.");
-  console.log("Nekobin URL:", pasteUrl);
+  const url = await samirapi.nekobin("console.log('Hello, world!');");
+  console.log("Nekobin URL:", url);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### Facebook Cover Functions
+### Facebook Cover Function
 
 <details>
-<summary><code>generateAvatar(name, id, subname, color)</code> - Generates a Facebook cover avatar.</summary>
+<summary><code>generateAvatar(name, id, subname, color)</code> - Generates a Facebook-style avatar image.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.generateAvatar("John Doe", "12345", "Developer", "#ff0000")
-  .then(avatarImage => console.log("Generated Avatar Image:", avatarImage))
+samirapi.generateAvatar("John Doe", "1234", "Developer", "blue")
+  .then(avatar => console.log("Generated Avatar:", avatar))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const avatarImage = await samirapi.generateAvatar("John Doe", "12345", "Developer", "#ff0000");
-  console.log("Generated Avatar Image:", avatarImage);
+  const avatar = await samirapi.generateAvatar("John Doe", "1234", "Developer", "blue");
+  console.log("Generated Avatar:", avatar);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### Pinterest Functions
+### Pinterest Function
 
 <details>
-<summary><code>searchPinterest(query, number = 6)</code> - Searches Pinterest for a given query.</summary>
+<summary><code>searchPinterest(query, number = 6)</code> - Searches Pinterest for images.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.searchPinterest("nature", 5)
-  .then(results => console.log("Pinterest Search Results:", results))
+samirapi.searchPinterest("beautiful landscapes")
+  .then(images => console.log("Pinterest Images:", images))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const results = await samirapi.searchPinterest("nature", 5);
-  console.log("Pinterest Search Results:", results);
+  const images = await samirapi.searchPinterest("beautiful landscapes");
+  console.log("Pinterest Images:", images);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### Get Song Lyrics Functions
+### Lyrics Function
 
 <details>
-<summary><code>getLyrics(query)</code> - Retrieves lyrics for a given query.</summary>
+<summary><code>getLyrics(query)</code> - Retrieves lyrics for a given song query.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.getLyrics("Never Gonna Give You Up")
-  .then(lyrics => console.log("Song Lyrics:", lyrics))
+samirapi.getLyrics("Imagine")
+  .then(lyrics => console.log("Lyrics:", lyrics))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const lyrics = await samirapi.getLyrics("Never Gonna Give You Up");
-  console.log("Song Lyrics:", lyrics);
+  const lyrics = await samirapi.getLyrics("Imagine");
+  console.log("Lyrics:", lyrics);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### TempMail Functions
+### Tempmail Functions
 
 <details>
-<summary><code>getTempMail()</code> - Retrieves a temporary email address.</summary>
+<summary><code>getTempMail()</code> - Generates a temporary email address.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
 samirapi.getTempMail()
-  .then(email => console.log("Temporary Email Address:", email))
+  .then(email => console.log("Temporary Email:", email))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
@@ -1131,7 +1130,7 @@ import samirapi from 'samirapi';
 
 try {
   const email = await samirapi.getTempMail();
-  console.log("Temporary Email Address:", email);
+  console.log("Temporary Email:", email);
 } catch (error) {
   console.error(error);
 }
@@ -1139,97 +1138,97 @@ try {
 </details>
 
 <details>
-<summary><code>getInbox(email)</code> - Retrieves inbox messages for a given temporary email address.</summary>
+<summary><code>getInbox(email)</code> - Retrieves the inbox for a given temporary email address.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
 samirapi.getInbox("example@tempmail.com")
-  .then(messages => console.log("Inbox Messages:", messages))
+  .then(inbox => console.log("Inbox:", inbox))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const messages = await samirapi.getInbox("example@tempmail.com");
-  console.log("Inbox Messages:", messages);
+  const inbox = await samirapi.getInbox("example@tempmail.com");
+  console.log("Inbox:", inbox);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### JavaScript Obfuscator
+### JavaScript Obfuscator Function
 
 <details>
-<summary><code>obfuscate(query)</code> - Obfuscates JavaScript code.</summary>
+<summary><code>obfuscate(query)</code> - Obfuscates the given JavaScript code.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.obfuscate("console.log('Hello, World!');")
-  .then(obfuscatedCode => console.log("Obfuscated Code:", obfuscatedCode))
+samirapi.obfuscate("function hello() { console.log('Hello'); }")
+  .then(obfuscated => console.log("Obfuscated Code:", obfuscated))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const obfuscatedCode = await samirapi.obfuscate("console.log('Hello, World!');");
-  console.log("Obfuscated Code:", obfuscatedCode);
+  const obfuscated = await samirapi.obfuscate("function hello() { console.log('Hello'); }");
+  console.log("Obfuscated Code:", obfuscated);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### Weather Functions
+### Weather Function
 
 <details>
-<summary><code>getWeather(city)</code> - Retrieves the weather for a given city.</summary>
+<summary><code>getWeather(city)</code> - Retrieves weather information for a given city.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.getWeather("New York")
-  .then(weather => console.log("Weather Data:", weather))
+samirapi.getWeather("London")
+  .then(weather => console.log("Weather Information:", weather))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const weather = await samirapi.getWeather("New York");
-  console.log("Weather Data:", weather);
+  const weather = await samirapi.getWeather("London");
+  console.log("Weather Information:", weather);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
 
-### News Functions
+### News Function
 
 <details>
-<summary><code>news()</code> - Retrieves the latest news.</summary>
+<summary><code>news()</code> - Retrieves current news headlines.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
 samirapi.news()
-  .then(news => console.log("Latest News:", news))
+  .then(headlines => console.log("News Headlines:", headlines))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const news = await samirapi.news();
-  console.log("Latest News:", news);
+  const headlines = await samirapi.news();
+  console.log("News Headlines:", headlines);
 } catch (error) {
   console.error(error);
 }
@@ -1239,22 +1238,22 @@ try {
 ### QR Code Functions
 
 <details>
-<summary><code>generateQRCode(text)</code> - Generates a QR code for a given text.</summary>
+<summary><code>generateQRCode(text)</code> - Generates a QR code for the given text.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
 samirapi.generateQRCode("https://www.example.com")
-  .then(qrCodeImage => console.log("QR Code Image:", qrCodeImage))
+  .then(qrCode => console.log("QR Code Image:", qrCode))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const qrCodeImage = await samirapi.generateQRCode("https://www.example.com");
-  console.log("QR Code Image:", qrCodeImage);
+  const qrCode = await samirapi.generateQRCode("https://www.example.com");
+  console.log("QR Code Image:", qrCode);
 } catch (error) {
   console.error(error);
 }
@@ -1262,23 +1261,23 @@ try {
 </details>
 
 <details>
-<summary><code>readQRCode(url)</code> - Reads a QR code from a given URL.</summary>
+<summary><code>readQRCode(url)</code> - Reads and decodes a QR code from the given image URL.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.readQRCode("https://www.example.com/qr-code.png")
-  .
-
-then(decodedText => console.log("Decoded QR Code Text:", decodedText))
+samirapi.readQRCode("https://www.example.com/qrcode.png")
+  .then(decodedText => console.log("Decoded QR Code Text:", decodedText))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const decodedText = await samirapi.readQRCode("https://www.example.com/qr-code.png");
+  const decodedText = await
+
+ samirapi.readQRCode("https://www.example.com/qrcode.png");
   console.log("Decoded QR Code Text:", decodedText);
 } catch (error) {
   console.error(error);
@@ -1286,31 +1285,704 @@ try {
 ```
 </details>
 
-### Snippet
+### AI Detector Function
 
 <details>
-<summary><code>getSnippet(url)</code> - Retrieves a code snippet from a given URL.</summary>
+<summary><code>detectHumanAI(inputText)</code> - Detects whether the input text was written by a human or AI.</summary>
 
 ```javascript
 // CommonJS (CJS)
 const samirapi = require('samirapi');
 
-samirapi.getSnippet("https://www.example.com/snippet")
-  .then(snippet => console.log("Code Snippet:", snippet))
+samirapi.detectHumanAI("This is a sample text to check.")
+  .then(detection => console.log("AI Detection Result:", detection))
   .catch(error => console.error(error));
 
 // ES Modules (MJS)
 import samirapi from 'samirapi';
 
 try {
-  const snippet = await samirapi.getSnippet("https://www.example.com/snippet");
-  console.log("Code Snippet:", snippet);
+  const detection = await samirapi.detectHumanAI("This is a sample text to check.");
+  console.log("AI Detection Result:", detection);
 } catch (error) {
   console.error(error);
 }
 ```
 </details>
+
+### Emoji Mix Function
+
+<details>
+<summary><code>emojimix(emoji1, emoji2)</code> - Combines two emojis into a single image.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.emojimix("🙂", "😎")
+  .then(mixedEmoji => console.log("Mixed Emoji Image:", mixedEmoji))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const mixedEmoji = await samirapi.emojimix("🙂", "😎");
+  console.log("Mixed Emoji Image:", mixedEmoji);
+} catch (error) {
+  console.error(error);
+}
 ```
+</details>
 
+### Search Functions
 
+<details>
+<summary><code>spotifySearch(query)</code> - Searches Spotify for tracks, albums, or artists.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.spotifySearch("Imagine Dragons")
+  .then(results => console.log("Spotify Search Results:", results))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const results = await samirapi.spotifySearch("Imagine Dragons");
+  console.log("Spotify Search Results:", results);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>googleImageSearch(query)</code> - Performs a Google image search.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.googleImageSearch("beautiful landscapes")
+  .then(images => console.log("Google Image Search Results:", images))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const images = await samirapi.googleImageSearch("beautiful landscapes");
+  console.log("Google Image Search Results:", images);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>unsplashSearch(query)</code> - Searches Unsplash for images.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.unsplashSearch("sunsets")
+  .then(images => console.log("Unsplash Search Results:", images))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const images = await samirapi.unsplashSearch("sunsets");
+  console.log("Unsplash Search Results:", images);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>tiktokSearch(query)</code> - Searches TikTok for videos.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.tiktokSearch("funny videos")
+  .then(videos => console.log("TikTok Search Results:", videos))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const videos = await samirapi.tiktokSearch("funny videos");
+  console.log("TikTok Search Results:", videos);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>npmInfo(pkg)</code> - Retrieves information about an npm package.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.npmInfo("express")
+  .then(info => console.log("NPM Package Info:", info))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const info = await samirapi.npmInfo("express");
+  console.log("NPM Package Info:", info);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>playstoreSearch(query)</code> - Searches the Google Play Store for apps.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.playstoreSearch("weather apps")
+  .then(apps => console.log("Play Store Search Results:", apps))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const apps = await samirapi.playstoreSearch("weather apps");
+  console.log("Play Store Search Results:", apps);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>stackOverflowSearch(query)</code> - Searches Stack Overflow for questions.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.stackOverflowSearch("React hooks")
+  .then(questions => console.log("Stack Overflow Search Results:", questions))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const questions = await samirapi.stackOverflowSearch("React hooks");
+  console.log("Stack Overflow Search Results:", questions);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>stackOverflowQuestion(find)</code> - Retrieves a specific Stack Overflow question.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.stackOverflowQuestion("12345678")
+  .then(question => console.log("Stack Overflow Question:", question))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const question = await samirapi.stackOverflowQuestion("12345678");
+  console.log("Stack Overflow Question:", question);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>pypiSearch(query)</code> - Searches PyPI for Python packages.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.pypiSearch("requests")
+  .then(packages => console.log("PyPI Search Results:", packages))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const packages = await samirapi.pypiSearch("requests");
+  console.log("PyPI Search Results:", packages);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Note Function
+
+<details>
+<summary><code>note(text)</code> - Generates an image of a note with the given text.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.note("This is a note.")
+  .then(noteImage => console.log("Note Image:", noteImage))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const noteImage = await samirapi.note("This is a note.");
+  console.log("Note Image:", noteImage);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### MAL (MyAnimeList) Functions
+
+<details>
+<summary><code>malAnimeSearch(query)</code> - Searches MyAnimeList for anime.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.malAnimeSearch("Naruto")
+  .then(anime => console.log("MyAnimeList Anime Search Results:", anime))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const anime = await samirapi.malAnimeSearch("Naruto");
+  console.log("MyAnimeList Anime Search Results:", anime);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>malMangaSearch(query)</code> - Searches MyAnimeList for manga.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.malMangaSearch("One Piece")
+  .then(manga => console.log("MyAnimeList Manga Search Results:", manga))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samir
+
+api';
+
+try {
+  const manga = await samirapi.malMangaSearch("One Piece");
+  console.log("MyAnimeList Manga Search Results:", manga);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>malTopAiring()</code> - Retrieves the top airing anime from MyAnimeList.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.malTopAiring()
+  .then(topAiring => console.log("Top Airing Anime:", topAiring))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const topAiring = await samirapi.malTopAiring();
+  console.log("Top Airing Anime:", topAiring);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>malUpcoming(type)</code> - Retrieves upcoming anime or manga from MyAnimeList.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.malUpcoming("anime")
+  .then(upcoming => console.log("Upcoming Anime:", upcoming))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const upcoming = await samirapi.malUpcoming("anime");
+  console.log("Upcoming Anime:", upcoming);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Dictionary Function
+
+<details>
+<summary><code>dictionary(word)</code> - Looks up the definition of a word.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.dictionary("serendipity")
+  .then(definition => console.log("Word Definition:", definition))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const definition = await samirapi.dictionary("serendipity");
+  console.log("Word Definition:", definition);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Image Measurement Function
+
+<details>
+<summary><code>measure(imageUrl)</code> - Measures the dimensions of an image at the given URL.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.measure("https://www.example.com/image.png")
+  .then(dimensions => console.log("Image Dimensions:", dimensions))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const dimensions = await samirapi.measure("https://www.example.com/image.png");
+  console.log("Image Dimensions:", dimensions);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Font Style Function
+
+<details>
+<summary><code>stylize(text)</code> - Applies various font styles to the given text.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.stylize("Hello World!")
+  .then(stylizedText => console.log("Stylized Text:", stylizedText))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const stylizedText = await samirapi.stylize("Hello World!");
+  console.log("Stylized Text:", stylizedText);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Mobile Legends Function
+
+<details>
+<summary><code>mobileLegendsHero(query)</code> - Retrieves information about a Mobile Legends hero.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.mobileLegendsHero("Aldous")
+  .then(heroInfo => console.log("Mobile Legends Hero Info:", heroInfo))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const heroInfo = await samirapi.mobileLegendsHero("Aldous");
+  console.log("Mobile Legends Hero Info:", heroInfo);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Language Detection Function
+
+<details>
+<summary><code>detectLanguage(text)</code> - Detects the language of the given text.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.detectLanguage("Bonjour tout le monde")
+  .then(language => console.log("Detected Language:", language))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const language = await samirapi.detectLanguage("Bonjour tout le monde");
+  console.log("Detected Language:", language);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Hentai Function
+
+<details>
+<summary><code>hentai()</code> - Retrieves hentai-related content (NSFW).</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.hentai()
+  .then(content => console.log("Hentai Content:", content))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const content = await samirapi.hentai();
+  console.log("Hentai Content:", content);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### GSM Phone Info Functions
+
+<details>
+<summary><code>phonelink(search)</code> - Searches for phone information.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.phonelink("Samsung Galaxy S21")
+  .then(info => console.log("Phone Info:", info))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const info = await samirapi.phonelink("Samsung Galaxy S21");
+  console.log("Phone Info:", info);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>phoneinfo(url)</code> - Retrieves detailed information about a phone from a given URL.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.phoneinfo("https://www.example.com/phoneinfo")
+  .then(info => console.log("Phone Details:", info))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const info = await samirapi.phoneinfo("https://www.example.com/phoneinfo");
+  console.log("Phone Details:", info);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Stalk Functions
+
+<details>
+<summary><code>tikstalk(username)</code> - Retrieves information about a TikTok user.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.tikstalk("user123")
+  .then(userInfo => console.log("TikTok User Info:", userInfo))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const userInfo = await samirapi.tikstalk("user123");
+  console.log("TikTok User Info:", userInfo);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>tweetStalk(username)</code> - Retrieves information about a Twitter user.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.tweetStalk("twitteruser")
+  .then(userInfo => console.log("Twitter User Info:", userInfo))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const userInfo = await samirapi.tweetStalk("twitteruser");
+  console.log("Twitter User Info:", userInfo);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Currency Exchange Function
+
+<details>
+<summary><code>convert(amount, from, to)</code> - Converts currency from one type to another.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.convert(100, "USD", "EUR")
+  .then(convertedAmount => console.log("Converted Amount:", convertedAmount))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const convertedAmount = await samirapi.convert(100, "USD", "EUR");
+  console.log("Converted Amount:", convertedAmount);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### IP Lookup Functions
+
+<details>
+<summary><code>ipdetect()</code> - Detects the user's IP address.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.ipdetect()
+  .then(ip => console.log("Detected IP Address:", ip))
+  .catch(error => console
+
+.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const ip = await samirapi.ipdetect();
+  console.log("Detected IP Address:", ip);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>ipwhois(ip)</code> - Retrieves WHOIS information for a given IP address.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.ipwhois("103.204.209.113")
+  .then(info => console.log("IP WHOIS Info:", info))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const info = await samirapi.ipwhois("103.204.209.113");
+  console.log("IP WHOIS Info:", info);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
 
