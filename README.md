@@ -943,4 +943,374 @@ try {
 </details>
 
 ### Text Bin Functions
+```markdown
+### Text Bin Functions
+
+<details>
+<summary><code>pastebin(text)</code> - Creates a paste on Pastebin.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.pastebin("This is a text paste.")
+  .then(pasteUrl => console.log("Pastebin URL:", pasteUrl))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const pasteUrl = await samirapi.pastebin("This is a text paste.");
+  console.log("Pastebin URL:", pasteUrl);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>paste(text)</code> - Creates a paste on Paste.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.paste("This is a paste.")
+  .then(pasteUrl => console.log("Paste URL:", pasteUrl))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const pasteUrl = await samirapi.paste("This is a paste.");
+  console.log("Paste URL:", pasteUrl);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>hastebin(text)</code> - Creates a paste on Hastebin.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.hastebin("This is a Hastebin paste.")
+  .then(pasteUrl => console.log("Hastebin URL:", pasteUrl))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const pasteUrl = await samirapi.hastebin("This is a Hastebin paste.");
+  console.log("Hastebin URL:", pasteUrl);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>nekobin(code)</code> - Creates a paste on Nekobin.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.nekobin("This is a Nekobin paste.")
+  .then(pasteUrl => console.log("Nekobin URL:", pasteUrl))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const pasteUrl = await samirapi.nekobin("This is a Nekobin paste.");
+  console.log("Nekobin URL:", pasteUrl);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Facebook Cover Functions
+
+<details>
+<summary><code>generateAvatar(name, id, subname, color)</code> - Generates a Facebook cover avatar.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.generateAvatar("John Doe", "12345", "Developer", "#ff0000")
+  .then(avatarImage => console.log("Generated Avatar Image:", avatarImage))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const avatarImage = await samirapi.generateAvatar("John Doe", "12345", "Developer", "#ff0000");
+  console.log("Generated Avatar Image:", avatarImage);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Pinterest Functions
+
+<details>
+<summary><code>searchPinterest(query, number = 6)</code> - Searches Pinterest for a given query.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.searchPinterest("nature", 5)
+  .then(results => console.log("Pinterest Search Results:", results))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const results = await samirapi.searchPinterest("nature", 5);
+  console.log("Pinterest Search Results:", results);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Get Song Lyrics Functions
+
+<details>
+<summary><code>getLyrics(query)</code> - Retrieves lyrics for a given query.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.getLyrics("Never Gonna Give You Up")
+  .then(lyrics => console.log("Song Lyrics:", lyrics))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const lyrics = await samirapi.getLyrics("Never Gonna Give You Up");
+  console.log("Song Lyrics:", lyrics);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### TempMail Functions
+
+<details>
+<summary><code>getTempMail()</code> - Retrieves a temporary email address.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.getTempMail()
+  .then(email => console.log("Temporary Email Address:", email))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const email = await samirapi.getTempMail();
+  console.log("Temporary Email Address:", email);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>getInbox(email)</code> - Retrieves inbox messages for a given temporary email address.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.getInbox("example@tempmail.com")
+  .then(messages => console.log("Inbox Messages:", messages))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const messages = await samirapi.getInbox("example@tempmail.com");
+  console.log("Inbox Messages:", messages);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### JavaScript Obfuscator
+
+<details>
+<summary><code>obfuscate(query)</code> - Obfuscates JavaScript code.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.obfuscate("console.log('Hello, World!');")
+  .then(obfuscatedCode => console.log("Obfuscated Code:", obfuscatedCode))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const obfuscatedCode = await samirapi.obfuscate("console.log('Hello, World!');");
+  console.log("Obfuscated Code:", obfuscatedCode);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Weather Functions
+
+<details>
+<summary><code>getWeather(city)</code> - Retrieves the weather for a given city.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.getWeather("New York")
+  .then(weather => console.log("Weather Data:", weather))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const weather = await samirapi.getWeather("New York");
+  console.log("Weather Data:", weather);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### News Functions
+
+<details>
+<summary><code>news()</code> - Retrieves the latest news.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.news()
+  .then(news => console.log("Latest News:", news))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const news = await samirapi.news();
+  console.log("Latest News:", news);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### QR Code Functions
+
+<details>
+<summary><code>generateQRCode(text)</code> - Generates a QR code for a given text.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.generateQRCode("https://www.example.com")
+  .then(qrCodeImage => console.log("QR Code Image:", qrCodeImage))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const qrCodeImage = await samirapi.generateQRCode("https://www.example.com");
+  console.log("QR Code Image:", qrCodeImage);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+<details>
+<summary><code>readQRCode(url)</code> - Reads a QR code from a given URL.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.readQRCode("https://www.example.com/qr-code.png")
+  .
+
+then(decodedText => console.log("Decoded QR Code Text:", decodedText))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const decodedText = await samirapi.readQRCode("https://www.example.com/qr-code.png");
+  console.log("Decoded QR Code Text:", decodedText);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+
+### Snippet
+
+<details>
+<summary><code>getSnippet(url)</code> - Retrieves a code snippet from a given URL.</summary>
+
+```javascript
+// CommonJS (CJS)
+const samirapi = require('samirapi');
+
+samirapi.getSnippet("https://www.example.com/snippet")
+  .then(snippet => console.log("Code Snippet:", snippet))
+  .catch(error => console.error(error));
+
+// ES Modules (MJS)
+import samirapi from 'samirapi';
+
+try {
+  const snippet = await samirapi.getSnippet("https://www.example.com/snippet");
+  console.log("Code Snippet:", snippet);
+} catch (error) {
+  console.error(error);
+}
+```
+</details>
+```
+
+
 
