@@ -1,0 +1,28 @@
+{
+  "name": "samirapi",
+  "version": "1.0.0",
+  "description": "A versatile API wrapper for various services",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["api", "wrapper", "samirapi","scraper","bing", "gpt", "llm","ai","scraper","Whatsapp","discord","messenger" ],
+  "author": "Samir Œ",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "rollup": "^2.60.0"
+  }
+}
