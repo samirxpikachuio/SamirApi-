@@ -2250,14 +2250,14 @@ try {
 
 
 
+# Thank You for Exploring!
 
+We appreciate your interest in this package. What matters most to us is creating and innovating to meet your needs.
 
-# Thank you for exploring Hope you like this Package what matters most—creating and innovating.
+If you have any questions, feedback, or suggestions, please don’t hesitate to reach out:
 
-# If you have any questions, feedback, or suggestions, please don’t hesitate to reach out.
-
-# Telegram Channel:- https://t.me/Architectdevs
-# Telegram Chat Group:- https://t.me/ArchitectdevsChat
-# Facebook Group:- https://facebook.com/groups/761805065901067/
-# Discord:- username samirxpikachu
-
+- **Telegram Channel:** [Architectdevs](https://t.me/Architectdevs)
+- **Telegram Chat Group:** [ArchitectdevsChat](https://t.me/ArchitectdevsChat)
+- **Facebook Group:** [Architectdevs Group](https://facebook.com/groups/761805065901067/)
+- **Discord:** [samirxpikachu](https://discord.com/users/samirxpikachu)
+- 
