@@ -1,422 +1,208 @@
-import axios from 'axios';
+import https from 'https';
+import { URL } from 'url';
 
-const baseUrl = "https://www.samirxpikachu.run.place/";
+const BASE_URL = 'https://www.samirxpikachu.run.place/';
 
-const fetchData = async (endpoint, params = {}, isPathParam = false, method = 'GET', data = null, responseType = 'json') => {
-  let url = `${baseUrl}${endpoint}`;
-  if (params && !isPathParam) {
-    url += `?${new URLSearchParams(params)}`;
-  } else if (params && isPathParam) {
-    url = url.replace(/{[^}]+}/, params);
-  }
-  
-  const config = {
-    method,
-    url,
-    data,
-    responseType,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  
-  const response = await axios(config);
-  return response.data;
-};
+function makeRequest(endpoint, params = {}, method = 'GET') {
+  return new Promise((resolve, reject) => {
+    const url = new URL(endpoint, BASE_URL);
+    if (method === 'GET') {
+      url.search = new URLSearchParams(params).toString();
+    }
+    const options = {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const req = https.request(url, options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try {
+            resolve(JSON.parse(data));
+          } catch (error) {
+            resolve(data);
+          }
+        } else {
+          reject(new Error(`Request failed with status code ${res.statusCode}: ${data}`));
+        }
+      });
+    });
+    req.on('error', (error) => { reject(error); });
+    if (method === 'POST') {
+      req.write(JSON.stringify(params));
+    }
+    req.end();
+  });
+}
 
-const fetchImage = async (endpoint, params = {}) => {
-  const url = `${baseUrl}${endpoint}?${new URLSearchParams(params)}`;
-  const response = await axios.get(url, { responseType: 'arraybuffer' });
-  return Buffer.from(response.data, 'binary');
-};
+function makeImageRequest(endpoint, params = {}) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(endpoint, BASE_URL);
+    url.search = new URLSearchParams(params).toString();
+    https.get(url, (res) => {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        const chunks = [];
+        res.on('data', (chunk) => chunks.push(chunk));
+        res.on('end', () => resolve(Buffer.concat(chunks)));
+      } else {
+        reject(new Error(`Image request failed with status code ${res.statusCode}`));
+      }
+    }).on('error', reject);
+  });
+}
 
 const samirapi = {
   fetchJson: (endpoint, params, isPathParam = false, method = 'GET', data = null) => {
-    return fetchData(endpoint, params, isPathParam, method, data, 'json');
+    if (isPathParam) {
+      endpoint = endpoint.replace(/{[^}]+}/, params);
+      params = {};
+    }
+    return makeRequest(endpoint, method === 'GET' ? params : data, method);
   },
 
   fetchBinary: (endpoint, params, isPathParam = false, method = 'GET', data = null) => {
-    return fetchData(endpoint, params, isPathParam, method, data, 'arraybuffer');
-  },
-
-  // LLM part
-  palm: a => fetchData("palm", { text: a }),
-  liner: a => fetchData("liner", { prompt: a }),
-  gpt: a => fetchData("gpt", { content: a }),
-  llama3: (prompt, system_prompt) => fetchData("llama3", { prompt, system_prompt }),
-  mixtral142B: (prompt, system_prompt) => fetchData("Mixtral/142B", { prompt, system_prompt }),
-  bing: ({ message, mode, uid }) => fetchData("bing", { message, mode, uid }),
-  gemini: (text, uid) => fetchData("Gemini", { text, uid }),
-  stoicai: a => fetchData("stoicai", { query: a }),
-  stoicgpt: a => fetchData("stoicgpt", { query: a }),
-  generatePrompt: (text) => {
-    if (!text) {
-      throw new Error('Text parameter is required');
+    if (isPathParam) {
+      endpoint = endpoint.replace(/{[^}]+}/, params);
+      params = {};
     }
-    return fetchData("prompt", { text });
+    return makeImageRequest(endpoint, params);
   },
 
-  // Image generator part
-  artify: url => fetchImage("artify", { url }),
-  togta: url => fetchImage("gta", { url }),
-  imagine: prompt => fetchImage("Imagine", { prompt }),
-  animagine: (prompt, resolution, model, qualitytag) => fetchImage("animagine", { prompt, resolution, model, qualitytag }),
-  niji: (prompt, resolution) => fetchImage("niji", { prompt, resolution }),
-  mageDef: prompt => fetchImage("mageDef", { prompt }),
-  flux: prompt => fetchImage("flux", { prompt }),
-  marjia: prompt => fetchImage("marjia", { prompt }),
-  tozombie: url => fetchImage("zombie", { imgurl: url }),
-  remBackground: url => fetchImage("rbg", { url }),
+  palm: a => makeRequest("palm", { text: a }),
+  liner: a => makeRequest("liner", { prompt: a }),
+  gpt: a => makeRequest("gpt", { content: a }),
+  llama3: (prompt, system_prompt) => makeRequest("llama3", { prompt, system_prompt }),
+  mixtral142B: (prompt, system_prompt) => makeRequest("Mixtral/142B", { prompt, system_prompt }),
+  bing: ({ message, mode, uid }) => makeRequest("bing", { message, mode, uid }),
+  gemini: (text, uid) => makeRequest("Gemini", { text, uid }),
+  stoicai: a => makeRequest("stoicai", { query: a }),
+  stoicgpt: a => makeRequest("stoicgpt", { query: a }),
+  generatePrompt: (text) => makeRequest("prompt", { text }),
 
-  // Downloader part
-  tiktok: a => fetchData("tiktok", { url: a }),
-  facebook: a => fetchData("fbdl", { vid_url: a }),
-  spotifydl: a => fetchData("spotifydl", { url: a }),
-  Twitter: a => fetchData("Twitter", { url: a }),
-  Instagram: a => fetchData("igdl", { url: a }),
+  artify: url => makeImageRequest("artify", { url }),
+  togta: url => makeImageRequest("gta", { url }),
+  imagine: prompt => makeImageRequest("Imagine", { prompt }),
+  animagine: (prompt, resolution, model, qualitytag) => makeImageRequest("animagine", { prompt, resolution, model, qualitytag }),
+  niji: (prompt, resolution) => makeImageRequest("niji", { prompt, resolution }),
+  mageDef: prompt => makeImageRequest("mageDef", { prompt }),
+  flux: prompt => makeImageRequest("flux", { prompt }),
+  marjia: prompt => makeImageRequest("marjia", { prompt }),
+  tozombie: url => makeImageRequest("zombie", { imgurl: url }),
+  remBackground: url => makeImageRequest("rbg", { url }),
 
-  // Meme part
-  pet: url => fetchImage("pet", { url }),
+  tiktok: a => makeRequest("tiktok", { url: a }),
+  facebook: a => makeRequest("fbdl", { vid_url: a }),
+  spotifydl: a => makeRequest("spotifydl", { url: a }),
+  Twitter: a => makeRequest("Twitter", { url: a }),
+  Instagram: a => makeRequest("igdl", { url: a }),
 
-  html2image: a => fetchImage("html2image", { html: a }),
+  pet: url => makeImageRequest("pet", { url }),
 
-  // Temp-Number part
-  countries: () => fetchData("api/countries"),
-  numbers: (country) => fetchData(`api/numbers/${encodeURIComponent(country)}`),
-  messages: (number) => fetchData(`api/messages/${encodeURIComponent(number)}`),
+  html2image: a => makeImageRequest("html2image", { html: a }),
 
-  // Anilist API
-  anilistUser: (username) => fetchData(`anilist/user/${encodeURIComponent(username)}`),
-  view: (username) => fetchData(`view/${encodeURIComponent(username)}`),
-  animeDetails: (title) => fetchData(`anime/details/${encodeURIComponent(title)}`),
-  animeTop: (category) => fetchData(`anime/top/${encodeURIComponent(category)}`),
+  countries: () => makeRequest("api/countries"),
+  numbers: (country) => makeRequest(`api/numbers/${encodeURIComponent(country)}`),
+  messages: (number) => makeRequest(`api/messages/${encodeURIComponent(number)}`),
 
-  // URL shortener
-  uploadToTelegraph: (url, senderId) => fetchData('telegraph', { url, senderId }),
-  shortenUrl: (url) => fetchData('api/shorten', { url }),
+  anilistUser: (username) => makeRequest(`anilist/user/${encodeURIComponent(username)}`),
+  view: (username) => makeRequest(`view/${encodeURIComponent(username)}`),
+  animeDetails: (title) => makeRequest(`anime/details/${encodeURIComponent(title)}`),
+  animeTop: (category) => makeRequest(`anime/top/${encodeURIComponent(category)}`),
 
-  // Text bin
-  pastebin: (text) => fetchData("pastebin", { text }),
-  paste: (text) => fetchData("paste", { text }),
-  hastebin: (text) => fetchData("Hastebin", { text }),
-  nekobin: (code) => fetchData("nekobin", { code }),
+  uploadToTelegraph: (url, senderId) => makeRequest('telegraph', { url, senderId }),
+  shortenUrl: (url) => makeRequest('api/shorten', { url }),
 
-  // Facebook cover
-  generateAvatar: async (name, id, subname, color) => {
+  pastebin: (text) => makeRequest("pastebin", { text }),
+  paste: (text) => makeRequest("paste", { text }),
+  hastebin: (text) => makeRequest("Hastebin", { text }),
+  nekobin: (code) => makeRequest("nekobin", { code }),
+
+  generateAvatar: (name, id, subname, color) => {
     const params = { name, id };
     if (subname) params.subname = subname;
     if (color) params.color = color;
-    return fetchImage("avatar", params);
+    return makeImageRequest("avatar", params);
   },
 
-  // Pinterest
-  searchPinterest: (query, number = 6) => {
-    return fetchData("pinterest", { query, number });
-  },
+  searchPinterest: (query, number = 6) => makeRequest("pinterest", { query, number }),
 
-  // Get song lyrics
-  getLyrics: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData("lyrics", { query });
-  },
+  getLyrics: (query) => makeRequest("lyrics", { query }),
 
-  // Tempmail generator
-  getTempMail: () => {
-    return fetchData("tempmail/get");
-  },
+  getTempMail: () => makeRequest("tempmail/get"),
+  getInbox: (email) => makeRequest(`tempmail/inbox/${encodeURIComponent(email)}`),
 
-  getInbox: (email) => {
-    if (!email) {
-      throw new Error('Email parameter is required');
-    }
-    return fetchData("tempmail/inbox/{email}", email, true);
-  },
+  obfuscate: (query) => makeRequest("obfuscate", { query }, 'POST'),
 
-  // JavaScript obfuscator
-  obfuscate: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData("obfuscate", null, false, 'POST', { query });
-  },
+  getWeather: (city) => makeRequest(`weather/${encodeURIComponent(city)}`),
 
-  // Weather
-  getWeather: (city) => {
-    if (!city) {
-      throw new Error('City parameter is required');
-    }
-    return fetchData("weather/{city}", city, true);
-  },
+  news: () => makeRequest("news"),
 
-  // News
-  news: () => fetchData("news"),
+  generateQRCode: (text) => makeRequest("qr", { text }),
+  readQRCode: (url) => makeRequest("qr/read", { url }),
 
-  // QR code gen and read
-  generateQRCode: (text) => {
-    if (!text) {
-      throw new Error('Text parameter is required');
-    }
-    return fetchData("qr", { text });
-  },
+  detectHumanAI: (inputText) => makeRequest("ai/detect", { input_text: inputText }),
 
-  readQRCode: (url) => {
-    if (!url) {
-      throw new Error('URL parameter is required');
-    }
-    return fetchData("qr/read", { url });
-  },
+  emojimix: (emoji1, emoji2) => makeRequest("emojimix2", { emoji1, emoji2 }),
 
-  // AI detector
-  detectHumanAI: (inputText) => {
-    if (!inputText) {
-      throw new Error('Input text parameter is required');
-    }
-    return fetchData("ai/detect", { input_text: inputText });
-  },
+  spotifySearch: (query) => makeRequest("spotifysearch", { q: query }),
+  googleImageSearch: (query) => makeRequest("google/imagesearch", { q: query }),
+  unsplashSearch: (query) => makeRequest("unsplash", { q: query }),
+  tiktokSearch: (query) => makeRequest(`tiktok/search/${encodeURIComponent(query)}`),
+  npmInfo: (pkg) => makeRequest(`npm-info/${encodeURIComponent(pkg)}`),
+  playstoreSearch: (query) => makeRequest(`playstore/search/${encodeURIComponent(query)}`),
+  stackOverflowSearch: (query) => makeRequest(`stackoverflow/search`, { q: query }),
+  stackOverflowQuestion: (find) => makeRequest(`stackoverflow/question`, { find }),
+  pypiSearch: (query) => makeRequest(`pypi/search`, { q: query }),
 
-  // Emoji mix
-  emojimix: (emoji1, emoji2) => {
-    if (!emoji1 || !emoji2) {
-      throw new Error('Both emoji1 and emoji2 parameters are required');
-    }
-    return fetchData("emojimix2", { emoji1, emoji2 });
-  },
+  note: text => makeImageRequest("note", { text }),
 
-  // Search
-  spotifySearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData("spotifysearch", { q: query });
-  },
-  googleImageSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData("google/imagesearch", { q: query });
-  },
-  unsplashSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData("unsplash", { q: query });
-  },
-  tiktokSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData(`tiktok/search/${encodeURIComponent(query)}`);
-  },
-  npmInfo: (pkg) => {
-    if (!pkg) {
-      throw new Error('Package name is required');
-    }
-    return fetchData(`npm-info/${encodeURIComponent(pkg)}`);
-  },
-  playstoreSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData(`playstore/search/${encodeURIComponent(query)}`);
-  },
-  stackOverflowSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData(`stackoverflow/search`, { q: query });
-  },
-  stackOverflowQuestion: (find) => {
-    if (!find) {
-      throw new Error('Find parameter is required');
-    }
-    return fetchData(`stackoverflow/question`, { find });
-  },
-  pypiSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData(`pypi/search`, { q: query });
-  },
+  malAnimeSearch: (query) => makeRequest(`mal/search/anime`, { q: query }),
+  malMangaSearch: (query) => makeRequest(`mal/search/manga`, { q: query }),
+  malTopAiring: () => makeRequest('mal/top/airing'),
+  malUpcoming: (type) => makeRequest('mal/upcoming', { type }),
 
-  // Note
-  note: text => fetchImage("note", { text }),
+  dictionary: (word) => makeRequest(`dictionary/${encodeURIComponent(word)}`),
 
-  // MAL anime API
-  malAnimeSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData(`mal/search/anime`, { q: query });
-  },
-  malMangaSearch: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData(`mal/search/manga`, { q: query });
-  },
-  malTopAiring: () => {
-    return fetchData('mal/top/airing');
-  },
-  malUpcoming: (type) => {
-    if (!type) {
-      throw new Error('Type parameter is required');
-    }
-    return fetchData('mal/upcoming', { type });
-  },
+  measure: (imageUrl) => makeRequest('measure', { imageUrl }, 'POST'),
 
-  // Word dictionary
-  dictionary: (word) => {
-    if (!word) {
-      throw new Error('Word parameter is required');
-    }
-    return fetchData(`dictionary/${encodeURIComponent(word)}`, null, true);
-  },
+  stylize: (text) => makeRequest('api/stylize', { text }),
 
-  // Image measurements
-  measure: (imageUrl) => {
-    if (!imageUrl) {
-      throw new Error('Image URL parameter is required');
-    }
-    return fetchData('measure', { imageUrl }, false, 'POST');
-  },
+  mobileLegendsHero: (query) => makeRequest(`mobile-legends/hero/${encodeURIComponent(query)}`),
 
-  // Font style
-  stylize: (text) => {
-    if (!text) {
-      throw new Error('Text parameter is required');
-    }
-    return fetchData('api/stylize', { text });
-  },
+  detectLanguage: (text) => makeRequest('detect/lang', { text }),
 
-  // MLBB
-  mobileLegendsHero: (query) => {
-    if (!query) {
-      throw new Error('Query parameter is required');
-    }
-    return fetchData('mobile-legends/hero/' + encodeURIComponent(query), null, true);
-  },
+  hentai: () => makeRequest('hentai'),
 
-  // Detected Lang
-  detectLanguage: (text) => {
-    if (!text) {
-      throw new Error('Text parameter is required');
-    }
-    return fetchData('detect/lang', { text });
-  },
+  phonelink: (search) => makeRequest('phonelink', { search }),
+  phoneinfo: (url) => makeRequest('phoneinfo', { url }),
 
-  // Hentai
-  hentai: () => {
-    return fetchData('hentai');
-  },
+  tikstalk: (username) => makeRequest('tikstalk', { username }),
+  tweetStalk: (username) => makeRequest('tweet/stalk', { username }),
 
-  // GSM phone info
-  phonelink: (search) => {
-    if (!search) {
-      throw new Error('Search parameter is required');
-    }
-    return fetchData('phonelink', { search });
-  },
-  phoneinfo: (url) => {
-    if (!url) {
-      throw new Error('URL parameter is required');
-    }
-    return fetchData('phoneinfo', { url });
-  },
+  convert: (amount, from, to) => makeRequest('convert', { amount, from, to }, 'POST'),
 
-  // Stalk
-  tikstalk: (username) => {
-    if (!username) {
-      throw new Error('Username parameter is required');
-    }
-    return fetchData('tikstalk', { username });
-  },
-  tweetStalk: (username) => {
-    if (!username) {
-      throw new Error('Username parameter is required');
-    }
-    return fetchData('tweet/stalk', { username });
-  },
+  ipdetect: () => makeRequest('ipdetect'),
+  iplookup: () => makeRequest('iplookup', {}, 'POST'),
 
-  // Currency exchange value
-  convert: (amount, from, to) => {
-    if (amount == null || !from || !to) {
-      throw new Error('Amount, from currency, and to currency parameters are required');
-    }
-    const data = { amount, from, to };
-    return fetchData('convert', {}, false, 'POST', data);
-  },
+  ytTranscript: (url) => makeRequest('yt/transcript', { url }),
+  transcribe: (url) => makeRequest('transcribe', { url }),
 
-  // IP lookup
-  ipdetect: () => {
-    return fetchData('ipdetect', {}, false, 'GET');
-  },
-  iplookup: () => {
-    return fetchData('iplookup', {}, false, 'POST', {});
-  },
+  vocalRev: (url) => makeRequest('vocalrev', { url }),
 
-  // Transcribe
-  ytTranscript: (url) => {
-    if (!url) {
-      throw new Error('URL parameter is required');
-    }
-    return fetchData('yt/transcript', { url });
-  },
-  transcribe: (url) => {
-    if (!url) {
-      throw new Error('URL parameter is required');
-    }
-    return fetchData('transcribe', { url });
-  },
+  waifuTTS: (text, number) => makeRequest('waifu-tts', { text, number }),
+  waifuVoicelist: () => makeRequest('waifu-voicelist'),
 
-  // Audio remover
-  vocalRev: (url) => {
-    if (!url) {
-      throw new Error('URL parameter is required');
-    }
-    return fetchData('vocalrev', { url });
-  },
+  clips: (text) => makeRequest('clips', { text }),
 
-  // Waifu TTS
-  waifuTTS: (text, number) => {
-    if (text === undefined || number === undefined) {
-      throw new Error('Text and number parameters are required');
-    }
-    return samirapi.fetchBinary('waifu-tts', { text, number });
-  },
-  waifuVoicelist: () => {
-    return samirapi.fetchJson('waifu-voicelist');
-  },
+  ngl: (username, message) => makeRequest('ngl', { username, message }),
 
-  // Movie clips
-  clips: (text) => {
-    if (!text) {
-      throw new Error('Text parameter is required');
-    }
-    return fetchData('clips', { text });
-  },
-
-  // NGL
-  ngl: (username, message) => {
-    if (username === undefined || message === undefined) {
-      throw new Error('Username and message parameters are required');
-    }
-    return fetchData('ngl', { username, message });
-  },
-
-  // Snippet
-  snippetLanguages: () => {
-    return fetchData('snippet/languages');
-  },
-  snippetThemes: () => {
-    return fetchData('snippet/themes');
-  },
-  snippet: (code, theme, language, lineNumbers, scale, backgroundColor, backgroundImage, showBackground) => {
-    if (!code) {
-      throw new Error('Code parameter is required');
-    }
-    return fetchImage('snippet', { 
+  snippetLanguages: () => makeRequest('snippet/languages'),
+  snippetThemes: () => makeRequest('snippet/themes'),
+  snippet: (code, theme, language, lineNumbers, scale, backgroundColor, backgroundImage, showBackground) => 
+    makeImageRequest('snippet', { 
       code, 
       theme, 
       language, 
@@ -425,8 +211,7 @@ const samirapi = {
       'background-color': backgroundColor, 
       'background-image': backgroundImage, 
       'show-background': showBackground 
-    });
-  },
+    }),
 };
 
-export default samirapi;
+export { samirapi as default };
