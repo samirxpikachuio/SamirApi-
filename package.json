@@ -1,6 +1,6 @@
 {
   "name": "samirapi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A versatile API wrapper for various services",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
